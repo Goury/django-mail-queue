@@ -11,9 +11,10 @@ class AttachmentInline(admin.TabularInline):
 
 class MailerAdmin(admin.ModelAdmin):
     list_display = ('created', 'subject', 'to_address', 'app', 'sent', 'last_attempt', 'reply_to')
-    search_fields = ['to_address', 'subject', 'app', 'bcc_address', 'reply_to']
+    search_fields = ['to_address', 'subject', 'app', 'cc_address', 'bcc_address', 'reply_to']
     actions = ['send_failed']
     inlines = [AttachmentInline]
+    date_hierarchy = "created"
 
     def send_failed(self, request, queryset):
         emails = queryset.filter(sent=False)

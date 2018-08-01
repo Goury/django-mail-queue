@@ -1,6 +1,9 @@
+import os
 from django.conf import settings
 from django.core.files.storage import FileSystemStorage
 from django.utils.crypto import get_random_string
+
+MAILQUEUE_ATTACHMENT_DIR = getattr(settings, 'MAILQUEUE_ATTACHMENT_DIR', 'mailqueue-attachments')
 
 
 class MailerStorage(FileSystemStorage):
@@ -9,7 +12,7 @@ class MailerStorage(FileSystemStorage):
             location = settings.MAILQUEUE_ROOT
         FileSystemStorage.__init__(self, location=location)
 
-    def url(self):
+    def url(self, **kwargs):
         return ''
 
 
@@ -24,7 +27,7 @@ def get_storage():
 def upload_to(instance, filename):
     # Because filename may also contain path
     # which is unneeded and may be harmful
-    filename = filename.split('/')[-1]
+    filename = filename.split(os.sep)[-1]
     # Because instead of filesystem, email message
     # can have multiple attachments with the same filename
-    return 'mailqueue-attahcments/{0}_{1}'.format(get_random_string(length=24), filename)
+    return '{0}/{1}_{2}'.format(MAILQUEUE_ATTACHMENT_DIR, get_random_string(length=24), filename)

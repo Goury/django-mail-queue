@@ -50,7 +50,7 @@ command is called in batches.
 
 - Added feature of set reply-to on the message
 
-2.3.0
+3.0.0
 -----
 
 - Django 1.9 Support
@@ -59,3 +59,21 @@ command is called in batches.
 - Removed South migrations
 - Cleanup/pep8 fixes
 - Celery 3.x syntax.  Mail queue now requires celery > 3 if using async email sending.
+- Python 3 Support
+
+
+3.1.0
+-----
+
+- Add CC addresses
+- Bug fixes
+
+3.1.3
+-----
+
+- Fixed filename split on windows via Jiří Král
+
+3.1.4
+-----
+
+- Django 2.0 Fixes from hggh
